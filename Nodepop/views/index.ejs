@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <h2>Ads List</h2>
+    <div class="items">
+      <% for (let ad of results) { %>
+        <div class="card-item">
+          <p>name: <%= ad.name %></p>
+          <p>status: <%= statusEnum[ad.status] %></p>
+          <p>price: <%= ad.price %></p>
+          <p><img src="/images/<%= ad.photo %>"></p>
+          <p>tags: <%= ad.tags %></p>
+        </div>
+      <%} %>           
+    </div>
+  </body>
+</html>
