@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const { Ad, statusEnum } = require('../../models/Ad.js');
+const jwtAuth = require('../../lib/jwtAuth');
 
 // GET /
 // get all ads
-router.get('/', async (req, res, next) => {
+router.get('/', jwtAuth, async (req, res, next) => {
     try {
         const name = req.query.name;
         const status = parseInt(req.query.status);

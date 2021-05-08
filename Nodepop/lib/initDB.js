@@ -1,9 +1,35 @@
 'use strict';
 
-const mongoose = require('mongoose');
-const { Ad } = require('../models/Ad.js');
+require('dotenv').config();
 
-mongoose.connection.once('open', async () => {
+const { Ad, User, connectMongoose, mongoose } = require('../models');
+
+main().catch(err => console.error(err));
+
+async function main() {
+
+    await initUsers();
+    //await initAdverts();
+    mongoose.connection.close();
+}
+
+async function initUsers() {
+    const data = [
+        {
+            email: 'usuario@example.com',
+            password: await User.hashPassword('1234')
+        },
+        {
+            email: 'admin@admin.com',
+            password: await User.hashPassword('secure-password')
+        }
+    ];
+    
+    await User.deleteMany();
+    await User.insertMany(data);
+}
+
+async function initAdverts() {
     const data = [
         {
             name: 'Laptop',
@@ -42,20 +68,6 @@ mongoose.connection.once('open', async () => {
         }
     ]
 
-    try {
-        await mongoose.connection.dropDatabase();
-        await Ad.insertMany(data);
-    } catch (error) {
-        console.log(error)
-    }    
-});
-
-
-mongoose.connection.on('error', err => {
-    console.log('connection error', err);
-});
-
-mongoose.connect('mongodb://localhost/Nodepop', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
+    await Ad.deleteMany();
+    await Ad.insertMany(data);
+}
