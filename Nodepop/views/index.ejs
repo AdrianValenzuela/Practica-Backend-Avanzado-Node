@@ -6,15 +6,19 @@
   </head>
   <body>
     <h1><%= title %></h1>
-    <h2>Ads List</h2>
+    <p><%= __('Select languaje') %>: <% getLocales().forEach(locale => { %>
+                                        <a href='/change-locale/<%= locale %>'><%= locale %></a>
+                                      <% }) %>
+    </p>
+    <h2><%= __('Ads List') %></h2>
     <div class="items">
       <% for (let ad of results) { %>
         <div class="card-item">
-          <p>name: <%= ad.name %></p>
-          <p>status: <%= statusEnum[ad.status] %></p>
-          <p>price: <%= ad.price %></p>
+          <p><%= __('name') %>: <%= ad.name %></p>
+          <p><%= __('status') %>: <%= statusEnum[ad.status] %></p>
+          <p><%= __('price') %>: <%= ad.price %></p>
           <p><img src="/images/<%= ad.photo %>"></p>
-          <p>tags: <%= ad.tags %></p>
+          <p><%= __('tags') %>: <%= ad.tags %></p>
         </div>
       <%} %>           
     </div>

@@ -5,7 +5,7 @@ const jwtAuth = require('../../lib/jwtAuth');
 
 // GET /
 // get all ads
-router.get('/', jwtAuth, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     try {
         const name = req.query.name;
         const status = parseInt(req.query.status);
